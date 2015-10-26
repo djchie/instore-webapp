@@ -5,6 +5,7 @@ var Input = require('react-bootstrap').Input;
 var ButtonInput = require('react-bootstrap').ButtonInput;
 var Col = require('react-bootstrap').Col;
 var Row = require('react-bootstrap').Row;
+var Link = require('react-bootstrap').Link;
 
 var Home = React.createClass({
   propTypes: {},
@@ -121,13 +122,15 @@ var styles = {
     bottom: 0
   },
   searchInputContainer: {
-    color: 'white'
+    color: 'white',
+    fontSize: 16
   },
   locationInputContainer: {
-    color: 'white'
+    color: 'white',
+    fontSize: 16
   },
   searchButtonContainer: {
-    marginTop: 25
+    marginTop: 26
   },
   searhcButton: {
   }
