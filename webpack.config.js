@@ -1,15 +1,19 @@
 'use strict';
 
-var webpack = require('webpack'),  
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  path = require('path'),
-  srcPath = path.join(__dirname, 'client');
+// Guide on using Webpack with React
+// https://christianalfoni.github.io/react-webpack-cookbook/index.html
+
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+// var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path');
+var srcPath = path.join(__dirname, 'client');
 
 module.exports = {  
   target: 'web',
   cache: true,
   entry: {
-    module: path.join(srcPath, 'js/App.js'),
+    bundle: path.join(srcPath, '/js/app.js'),
     common: ['react', 'react-router', 'flux']
   },
   resolve: {
@@ -18,7 +22,7 @@ module.exports = {
     modulesDirectories: ['node_modules', 'client']
   },
   output: {
-    path: path.join(__dirname, 'tmp'),
+    path: path.join(__dirname, 'build'),
     publicPath: '',
     filename: '[name].js',
     library: ['Example', '[name]'],
@@ -27,7 +31,11 @@ module.exports = {
 
   module: {
     loaders: [
-      {test: /\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'}
+      {test: /\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'},
+      // {test: /\.css$/, loader: 'style!css'},
+      // {test: /\.(png|jpg)$/, loader: 'file-loader?name=images/[name].[ext]'},
+      // {test: /\.(png|jpg)$/, loader: 'url?limit=25000'},
+      {test: /\.woff$/, loader: 'file-loader?name=fonts/[name].[ext]'}
     ]
   },
   plugins: [
@@ -36,13 +44,14 @@ module.exports = {
       inject: true,
       template: 'client/index.html'
     }),
+    // new ExtractTextPlugin('app.css'),
     new webpack.NoErrorsPlugin()
   ],
 
   debug: true,
   devtool: 'eval-cheap-module-source-map',
   devServer: {
-    contentBase: './tmp',
+    contentBase: './build',
     historyApiFallback: true
   }
 };

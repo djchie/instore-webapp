@@ -12,14 +12,10 @@ var Main = React.createClass({
             <div className="navbar-header">
               <Link to="home" className="navbar-brand"> InStore </Link>
             </div>
-            <ul className="nav navbar-nav pull-left">
+            <ul className="nav navbar-nav pull-right">
               <li><Link to="home" className="navbar-brand"> Home </Link></li>
               <li><Link to="productSearchResult" className="navbar-brand"> Search </Link></li>
               <li><Link to="productDetail" className="navbar-brand"> Product </Link></li>
-            </ul>
-            <ul className="nav navbar-nav pull-right">
-              <li><Link to="home" className="navbar-brand"> Sign Up </Link></li>
-              <li><Link to="home" className="navbar-brand"> Sign In </Link></li>
             </ul>
           </div>
         </nav>
