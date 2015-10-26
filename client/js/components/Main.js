@@ -7,8 +7,8 @@ var Main = React.createClass({
   render: function(){
     return (
       <span>
-        <nav className="navbar navbar-default navbar-static-top">
-          <div className="container">
+        <nav className="navbar navbar-default navbar-static-top" style={styles.navBar}>
+          <div className="container" style={styles.navBarContentContainer}>
             <div className="navbar-header">
               <Link to="home" className="navbar-brand"> InStore </Link>
             </div>
@@ -19,14 +19,22 @@ var Main = React.createClass({
             </ul>
           </div>
         </nav>
-        <div className="container">
-          <div className="row">
-            <RouteHandler />
-          </div>
-        </div>
+        <RouteHandler />
       </span>
     )
   }
 });
+
+var styles = {
+  navBar: {
+    marginBottom: 0,
+    borderColor: '#64cce7'
+  },
+  navBarContentContainer: {
+    marginLeft: 0,
+    marginRight: 0,
+    width: '100%'
+  }
+};
 
 module.exports = Main;
