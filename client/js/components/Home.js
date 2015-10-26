@@ -1,11 +1,13 @@
 var React = require("react");
+var Router = require('react-router');
+
 var ListContainer = require('./ListContainer');
 var Jumbotron = require('react-bootstrap').Jumbotron;
 var Input = require('react-bootstrap').Input;
 var ButtonInput = require('react-bootstrap').ButtonInput;
 var Col = require('react-bootstrap').Col;
 var Row = require('react-bootstrap').Row;
-var Link = require('react-bootstrap').Link;
+var Link = Router.Link;
 
 var Home = React.createClass({
   propTypes: {},
@@ -38,6 +40,18 @@ var Home = React.createClass({
   render: function(){
     return (
       <div className="container-fluid" style={styles.content}>
+        <nav className="navbar navbar-default navbar-static-top" style={styles.navBar}>
+          <div className="container" style={styles.navBarContentContainer}>
+            <div className="navbar-header" style={styles.navBarLogo}>
+              <Link to="home" className="navbar-brand"> InStore </Link>
+            </div>
+            <ul className="nav navbar-nav pull-right" style={styles.navBarMenu}>
+              <li><Link to="home" className="navbar-brand"> Home </Link></li>
+              <li><Link to="productSearchResult" className="navbar-brand"> Search </Link></li>
+              <li><Link to="productDetail" className="navbar-brand"> Product </Link></li>
+            </ul>
+          </div>
+        </nav>
         <Jumbotron style={styles.hero}>
           <div className="container" style={styles.heroCaption}>
             <h1>Welcome Vapors</h1>
@@ -93,6 +107,23 @@ var styles = {
   content: {
     paddingLeft: 0,
     paddingRight: 0
+  },
+  navBar: {
+    marginBottom: 0,
+    borderColor: '#64cce7',
+    height: 60
+  },
+  navBarContentContainer: {
+    marginLeft: 0,
+    marginRight: 0,
+    width: '100%',
+    height: '100%'
+  },
+  navBarLogo: {
+    paddingTop: 5
+  },
+  navBarMenu: {
+    paddingTop: 5
   },
   hero: {
     backgroundImage: 'url(\'http://jinqiaojs.com/hd/pretty-beach-hd-wallpaper-0zd.jpg\')',

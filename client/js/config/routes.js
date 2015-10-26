@@ -6,7 +6,7 @@ var Main = require('../components/Main');
 // var Login = require("../components/login-register/Login");
 // var Logout = require('../components/login-register/Logout');
 // var Dashboard = require('../components/secure/Dashboard');
-var Home = require("../components/Home");
+var Home = require("../components/home");
 var ProductSearchResult = require("../components/ProductSearchResult");
 var ProductDetail = require("../components/ProductDetail");
 
