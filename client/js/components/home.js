@@ -43,18 +43,18 @@ var Home = React.createClass({
         <nav className="navbar navbar-default navbar-static-top" style={styles.navBar}>
           <div className="container" style={styles.navBarContentContainer}>
             <div className="navbar-header" style={styles.navBarLogo}>
-              <Link to="home" className="navbar-brand"> InStore </Link>
+              <Link to="home" className="navbar-brand" style={styles.navBarLink}> InStore </Link>
             </div>
             <ul className="nav navbar-nav pull-right" style={styles.navBarMenu}>
-              <li><Link to="home" className="navbar-brand"> Home </Link></li>
-              <li><Link to="productSearchResult" className="navbar-brand"> Search </Link></li>
-              <li><Link to="productDetail" className="navbar-brand"> Product </Link></li>
+              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Home </Link></li>
+              <li><Link to="productSearchResult" className="navbar-brand" style={styles.navBarLink}> Search </Link></li>
+              <li><Link to="productDetail" className="navbar-brand" style={styles.navBarLink}> Product </Link></li>
             </ul>
           </div>
         </nav>
         <Jumbotron style={styles.hero}>
           <div className="container" style={styles.heroCaption}>
-            <h1>Welcome Vapors</h1>
+            <h1>Welcome!</h1>
             <p>Search local OC vape shops for products you need now</p>
           </div>
           <div className="container" style={styles.searchContainer}>
@@ -109,9 +109,12 @@ var styles = {
     paddingRight: 0
   },
   navBar: {
-    marginBottom: 0,
-    borderColor: '#64cce7',
-    height: 60
+    // marginBottom: 0,
+    // borderColor: '#64cce7',
+    marginBottom: -60,
+    backgroundColor: 'rgba(0, 0, 0, 0.0)',
+    borderBottom: 0,
+    height: 60,
   },
   navBarContentContainer: {
     marginLeft: 0,
@@ -124,6 +127,9 @@ var styles = {
   },
   navBarMenu: {
     paddingTop: 5
+  },
+  navBarLink: {
+    color: 'white'
   },
   hero: {
     backgroundImage: 'url(\'http://jinqiaojs.com/hd/pretty-beach-hd-wallpaper-0zd.jpg\')',
