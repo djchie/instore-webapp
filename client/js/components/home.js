@@ -16,7 +16,7 @@ var Home = React.createClass({
   mixins: [Navigation, State],
   getInitialState: function() {
     return {
-      search: '',
+      productSearch: '',
       location: '',
       isLocationAutocompleteOn: false
     };
@@ -32,7 +32,7 @@ var Home = React.createClass({
   },
   handleSearchInputChange: function () {
     this.setState({
-      search: this.refs.searchInput.getValue()
+      productSearch: this.refs.searchInput.getValue()
     });
   },
   onSearchInputKeyDown: function (e) {
@@ -40,12 +40,10 @@ var Home = React.createClass({
       if (this.state.isLocationAutocompleteOn) {
         this.toggleIsLocationAutocompleteOn();
       }
-      else if (this.state.search !== '' && this.state.location !== '') {
-        var searchString = this.state.search.split(' ').join('+');
-        var locationString = this.state.location.split(' ').join('+');
+      else if (this.state.searchQuery !== '' && this.state.location !== '') {
         this.transitionTo('productSearchResults', {
-          search: searchString,
-          location: locationString
+          productSearch: this.state.productSearch.replace(/ /g, '+'),
+          location: this.state.location.replace(/ /g, '+')
         });
       }
     }
@@ -72,12 +70,10 @@ var Home = React.createClass({
     });
   },
   onSearchButtonPress: function () {
-    if (this.state.search !== ''  && this.state.location !== '') {
-      var searchString = this.state.search.split(' ').join('+');
-      var locationString = this.state.location.split(' ').join('+');
+    if (this.state.searchQuery !== ''  && this.state.location !== '') {
       this.transitionTo('productSearchResults', {
-        search: searchString,
-        location: locationString
+        productSearch: this.state.productSearch.replace(/ /g, '+'),
+        location: this.state.location.replace(/ /g, '+')
       });
     }
   },

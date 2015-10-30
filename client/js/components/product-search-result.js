@@ -14,7 +14,8 @@ var ProductSearchResult = React.createClass({
     console.log(this.getPath());
     console.log(this.getParams());
     return {
-      search: ''
+      productSearch: this.getParams().productSearch.replace(/'+'/g, ' '),
+      location: this.getParams().location.replace(/'+'/g, ' ')
     }
   },
   render: function(){

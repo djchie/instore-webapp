@@ -13,7 +13,7 @@ var ProductDetail = require("../components/ProductDetail");
 var routes = (
   <Route handler={Main} >
     <Route name="home" path="/" handler={Home} />
-    <Route name="productSearchResults" path="/search/product=:search&location=:location" handler={ProductSearchResult} />
+    <Route name="productSearchResults" path="/search/product=:productSearch&location=:location" handler={ProductSearchResult} />
     <Route name="productDetail" path="/product" handler={ProductDetail} />
   </Route>
 );
