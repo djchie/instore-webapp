@@ -14,7 +14,8 @@ var Home = React.createClass({
   mixins: [],
   getInitialState: function() {
     return {
-      
+      search: '',
+      location: ''
     };
   },
   componentDidMount: function () { 
@@ -23,17 +24,35 @@ var Home = React.createClass({
       types: ['(cities)'],
       componentRestrictions: {country: 'us'}
     };
+    var autocomplete = new google.maps.places.Autocomplete(locationInput, options);
+    google.maps.event.addListener(autocomplete, 'place_changed', this.handleLocationInputChange);
+  },
+  handleSearchInputChange: function () {
     this.setState({
-      autocomplete: new google.maps.places.Autocomplete(locationInput, options)
+      search: this.refs.searchInput.getValue()
     });
   },
   onSearchInputKeyDown: function (e) {
     if (e.keyCode === 13) {
-      console.log('Enter key pressed');
+      if (this.state.search !== '' && this.state.location !== '') {
+        console.log('Search', this.state.search);
+        console.log('Location', this.state.location);
+        // window.location.assign("/search");
+      }
     }
   },
+  handleLocationInputChange: function () {
+    console.log('LOCATION CHANGED', this.refs.locationInput.getValue());
+    this.setState({
+      location: this.refs.locationInput.getValue()
+    });
+  },
   onSearchButtonPress: function () {
-    console.log('Search button pressed');
+    if (this.state.search !== ''  && this.state.location !== '') {
+      console.log('Search', this.state.search);
+      console.log('Location', this.state.location);
+      // window.location.assign("/search");
+    }
   },
   render: function(){
     return (
@@ -59,10 +78,10 @@ var Home = React.createClass({
             <form>
               <Row>
                 <Col md={6} style={styles.searchInputContainer}>
-                  <Input type="text" label="Search" placeholder="What are you looking for?" bsSize="large" onKeyDown={this.onSearchInputKeyDown} />
+                  <Input ref="searchInput" type="text" label="Search" placeholder="What are you looking for?" bsSize="large" onChange={this.handleSearchInputChange} onKeyDown={this.onSearchInputKeyDown} />
                 </Col>
                 <Col md={4} style={styles.locationInputContainer}>
-                  <Input id="locationInput" type="text" label="Location" placeholder="Enter location" bsSize="large" onKeyDown={this.onSearchInputKeyDown} />
+                  <Input ref="locationInput" id="locationInput" type="text" label="Location" placeholder="Enter location" bsSize="large" onChange={this.handleLocationInputChange} onBlur={this.handleLocationInputChange} onKeyDown={this.onSearchInputKeyDown} />
                 </Col>
                 <Col md={2} style={styles.searchButtonContainer}>
                   <ButtonInput type="button" bsStyle="primary" value="Search" bsSize="large" block onClick={this.onSearchButtonPress} style={styles.searchButton} />
