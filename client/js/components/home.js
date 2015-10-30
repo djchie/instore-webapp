@@ -1,5 +1,7 @@
 var React = require("react");
 var Router = require('react-router');
+var Navigation = require('react-router').Navigation;
+var State = require('react-router').State;
 
 var ListContainer = require('./ListContainer');
 var Jumbotron = require('react-bootstrap').Jumbotron;
@@ -11,10 +13,7 @@ var Link = Router.Link;
 
 var Home = React.createClass({
   propTypes: {},
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-  mixins: [],
+  mixins: [Navigation, State],
   getInitialState: function() {
     return {
       search: '',
@@ -44,7 +43,10 @@ var Home = React.createClass({
       else if (this.state.search !== '' && this.state.location !== '') {
         var searchString = this.state.search.split(' ').join('+');
         var locationString = this.state.location.split(' ').join('+');
-        this.context.router.transitionTo('/search/product=' + searchString + '&location=' + locationString);
+        this.transitionTo('productSearchResults', {
+          search: searchString,
+          location: locationString
+        });
       }
     }
   },
@@ -73,7 +75,10 @@ var Home = React.createClass({
     if (this.state.search !== ''  && this.state.location !== '') {
       var searchString = this.state.search.split(' ').join('+');
       var locationString = this.state.location.split(' ').join('+');
-      this.context.router.transitionTo('/search/product=' + searchString + '&location=' + locationString);
+      this.transitionTo('productSearchResults', {
+        search: searchString,
+        location: locationString
+      });
     }
   },
   render: function(){
@@ -82,10 +87,10 @@ var Home = React.createClass({
         <nav className="navbar navbar-default navbar-static-top" style={styles.navBar}>
           <div className="container" style={styles.navBarContentContainer}>
             <div className="navbar-header" style={styles.navBarLogo}>
-              <Link to="/" className="navbar-brand" style={styles.navBarLink}> InStore </Link>
+              <Link to="home" className="navbar-brand" style={styles.navBarLink}> InStore </Link>
             </div>
             <ul className="nav navbar-nav pull-right" style={styles.navBarMenu}>
-              <li><Link to="/" className="navbar-brand" style={styles.navBarLink}> Home </Link></li>
+              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Home </Link></li>
               <li><Link to="/search/Any/location/All" className="navbar-brand" style={styles.navBarLink}> Search </Link></li>
               <li><Link to="/product" className="navbar-brand" style={styles.navBarLink}> Product </Link></li>
             </ul>

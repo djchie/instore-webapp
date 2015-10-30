@@ -7,14 +7,14 @@ var Main = require('../components/Main');
 // var Logout = require('../components/login-register/Logout');
 // var Dashboard = require('../components/secure/Dashboard');
 var Home = require("../components/home");
-var ProductSearchResult = require("../components/ProductSearchResult");
+var ProductSearchResult = require("../components/product-search-result");
 var ProductDetail = require("../components/ProductDetail");
 
 var routes = (
   <Route handler={Main} >
-    <Route path="/" handler={Home} />
-    <Route path="/search/product=:search&location=:location" handler={ProductSearchResult} />
-    <Route path="/product" handler={ProductDetail} />
+    <Route name="home" path="/" handler={Home} />
+    <Route name="productSearchResults" path="/search/product=:search&location=:location" handler={ProductSearchResult} />
+    <Route name="productDetail" path="/product" handler={ProductDetail} />
   </Route>
 );
 
