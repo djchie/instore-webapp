@@ -15,7 +15,8 @@ var Home = React.createClass({
   getInitialState: function() {
     return {
       search: '',
-      location: ''
+      location: '',
+      isLocationAutocompleteOn: false
     };
   },
   componentDidMount: function () { 
@@ -25,7 +26,7 @@ var Home = React.createClass({
       componentRestrictions: {country: 'us'}
     };
     var autocomplete = new google.maps.places.Autocomplete(locationInput, options);
-    google.maps.event.addListener(autocomplete, 'place_changed', this.handleLocationInputChange);
+    google.maps.event.addListener(autocomplete, 'place_changed', this.handlePlaceChanged);
   },
   handleSearchInputChange: function () {
     this.setState({
@@ -34,15 +35,36 @@ var Home = React.createClass({
   },
   onSearchInputKeyDown: function (e) {
     if (e.keyCode === 13) {
-      if (this.state.search !== '' && this.state.location !== '') {
+      if (this.state.isLocationAutocompleteOn) {
+        this.toggleIsLocationAutocompleteOn();
+        console.log('onSearchInputKeyDown made the bool', this.state.isLocationAutocompleteOn);
+      }
+      else if (this.state.search !== '' && this.state.location !== '') {
         console.log('Search', this.state.search);
         console.log('Location', this.state.location);
-        // window.location.assign("/search");
+        window.location.assign('/search/' + this.state.search + '/location/' + this.state.location);
       }
     }
   },
+  toggleIsLocationAutocompleteOn: function () {
+    this.setState({
+      isLocationAutocompleteOn: !this.state.isLocationAutocompleteOn
+    });
+  },
+  handlePlaceChanged: function () {
+    if (this.state.isLocationAutocompleteOn) {
+      this.toggleIsLocationAutocompleteOn();
+      console.log('handlePlaceChanged made the bool', this.state.isLocationAutocompleteOn);
+    }
+    this.setState({
+      location: this.refs.locationInput.getValue()
+    });
+  },
   handleLocationInputChange: function () {
-    console.log('LOCATION CHANGED', this.refs.locationInput.getValue());
+    if (!this.state.isLocationAutocompleteOn) {
+      this.toggleIsLocationAutocompleteOn();
+      console.log('handleLocationInputChange made the bool', this.state.isLocationAutocompleteOn);
+    }
     this.setState({
       location: this.refs.locationInput.getValue()
     });
@@ -51,7 +73,7 @@ var Home = React.createClass({
     if (this.state.search !== ''  && this.state.location !== '') {
       console.log('Search', this.state.search);
       console.log('Location', this.state.location);
-      // window.location.assign("/search");
+      window.location.assign('/search/' + this.state.search + '/location/' + this.state.location);
     }
   },
   render: function(){
@@ -60,12 +82,12 @@ var Home = React.createClass({
         <nav className="navbar navbar-default navbar-static-top" style={styles.navBar}>
           <div className="container" style={styles.navBarContentContainer}>
             <div className="navbar-header" style={styles.navBarLogo}>
-              <Link to="home" className="navbar-brand" style={styles.navBarLink}> InStore </Link>
+              <Link to="/" className="navbar-brand" style={styles.navBarLink}> InStore </Link>
             </div>
             <ul className="nav navbar-nav pull-right" style={styles.navBarMenu}>
-              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Home </Link></li>
-              <li><Link to="productSearchResult" className="navbar-brand" style={styles.navBarLink}> Search </Link></li>
-              <li><Link to="productDetail" className="navbar-brand" style={styles.navBarLink}> Product </Link></li>
+              <li><Link to="/" className="navbar-brand" style={styles.navBarLink}> Home </Link></li>
+              <li><Link to="/search/Any/location/All" className="navbar-brand" style={styles.navBarLink}> Search </Link></li>
+              <li><Link to="/product" className="navbar-brand" style={styles.navBarLink}> Product </Link></li>
             </ul>
           </div>
         </nav>
