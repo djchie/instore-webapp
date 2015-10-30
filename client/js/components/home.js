@@ -14,20 +14,18 @@ var Home = React.createClass({
   mixins: [],
   getInitialState: function() {
     return {
-
+      
     };
   },
-  getDefaultProps: function() {
-
-  },
-  componentWillMount: function() {
-
-  },
-  componentWillReceiveProps: function() {
-
-  },
-  componentWillUnmount: function() {
-
+  componentDidMount: function () { 
+    var locationInput = document.getElementById('locationInput');
+    var options = {
+      types: ['(cities)'],
+      componentRestrictions: {country: 'us'}
+    };
+    this.setState({
+      autocomplete: new google.maps.places.Autocomplete(locationInput, options)
+    });
   },
   onSearchInputKeyDown: function (e) {
     if (e.keyCode === 13) {
@@ -64,7 +62,7 @@ var Home = React.createClass({
                   <Input type="text" label="Search" placeholder="What are you looking for?" bsSize="large" onKeyDown={this.onSearchInputKeyDown} />
                 </Col>
                 <Col md={4} style={styles.locationInputContainer}>
-                  <Input type="text" label="Location" placeholder="Enter location" bsSize="large" onKeyDown={this.onSearchInputKeyDown} />
+                  <Input id="locationInput" type="text" label="Location" placeholder="Enter location" bsSize="large" onKeyDown={this.onSearchInputKeyDown} />
                 </Col>
                 <Col md={2} style={styles.searchButtonContainer}>
                   <ButtonInput type="button" bsStyle="primary" value="Search" bsSize="large" block onClick={this.onSearchButtonPress} style={styles.searchButton} />
