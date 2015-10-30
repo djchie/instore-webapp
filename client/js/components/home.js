@@ -40,12 +40,11 @@ var Home = React.createClass({
     if (e.keyCode === 13) {
       if (this.state.isLocationAutocompleteOn) {
         this.toggleIsLocationAutocompleteOn();
-        console.log('onSearchInputKeyDown made the bool', this.state.isLocationAutocompleteOn);
       }
       else if (this.state.search !== '' && this.state.location !== '') {
-        console.log('Search', this.state.search);
-        console.log('Location', this.state.location);
-        this.context.router.transitionTo('/search/' + this.state.search + '/location/' + this.state.location);
+        var searchString = this.state.search.split(' ').join('+');
+        var locationString = this.state.location.split(' ').join('+');
+        this.context.router.transitionTo('/search/product=' + searchString + '&location=' + locationString);
       }
     }
   },
@@ -72,9 +71,9 @@ var Home = React.createClass({
   },
   onSearchButtonPress: function () {
     if (this.state.search !== ''  && this.state.location !== '') {
-      console.log('Search', this.state.search);
-      console.log('Location', this.state.location);
-      window.location.assign('/search/' + this.state.search + '/location/' + this.state.location);
+      var searchString = this.state.search.split(' ').join('+');
+      var locationString = this.state.location.split(' ').join('+');
+      this.context.router.transitionTo('/search/product=' + searchString + '&location=' + locationString);
     }
   },
   render: function(){
