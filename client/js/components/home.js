@@ -11,6 +11,9 @@ var Link = Router.Link;
 
 var Home = React.createClass({
   propTypes: {},
+  contextTypes: {
+    router: React.PropTypes.func
+  },
   mixins: [],
   getInitialState: function() {
     return {
@@ -42,7 +45,7 @@ var Home = React.createClass({
       else if (this.state.search !== '' && this.state.location !== '') {
         console.log('Search', this.state.search);
         console.log('Location', this.state.location);
-        window.location.assign('/search/' + this.state.search + '/location/' + this.state.location);
+        this.context.router.transitionTo('/search/' + this.state.search + '/location/' + this.state.location);
       }
     }
   },
@@ -54,7 +57,6 @@ var Home = React.createClass({
   handlePlaceChanged: function () {
     if (this.state.isLocationAutocompleteOn) {
       this.toggleIsLocationAutocompleteOn();
-      console.log('handlePlaceChanged made the bool', this.state.isLocationAutocompleteOn);
     }
     this.setState({
       location: this.refs.locationInput.getValue()
@@ -63,7 +65,6 @@ var Home = React.createClass({
   handleLocationInputChange: function () {
     if (!this.state.isLocationAutocompleteOn) {
       this.toggleIsLocationAutocompleteOn();
-      console.log('handleLocationInputChange made the bool', this.state.isLocationAutocompleteOn);
     }
     this.setState({
       location: this.refs.locationInput.getValue()
