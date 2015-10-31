@@ -2,14 +2,15 @@ var React = require("react");
 var Router = require('react-router');
 var Navigation = require('react-router').Navigation;
 var State = require('react-router').State;
+var Link = Router.Link;
 
-var ListContainer = require('./ListContainer');
 var Jumbotron = require('react-bootstrap').Jumbotron;
 var Input = require('react-bootstrap').Input;
 var ButtonInput = require('react-bootstrap').ButtonInput;
 var Col = require('react-bootstrap').Col;
 var Row = require('react-bootstrap').Row;
-var Link = Router.Link;
+
+var ListContainer = require('./ListContainer');
 
 var Home = React.createClass({
   propTypes: {},
@@ -86,9 +87,10 @@ var Home = React.createClass({
               <Link to="home" className="navbar-brand" style={styles.navBarLink}> InStore </Link>
             </div>
             <ul className="nav navbar-nav pull-right" style={styles.navBarMenu}>
-              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Home </Link></li>
-              <li><Link to="/search/Any/location/All" className="navbar-brand" style={styles.navBarLink}> Search </Link></li>
-              <li><Link to="/product" className="navbar-brand" style={styles.navBarLink}> Product </Link></li>
+              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Connect Your Inventory </Link></li>
+              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Help </Link></li>
+              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Sign Up </Link></li>
+              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Sign In </Link></li>
             </ul>
           </div>
         </nav>
@@ -99,17 +101,15 @@ var Home = React.createClass({
           </div>
           <div className="container" style={styles.searchContainer}>
             <form>
-              <Row>
-                <Col md={6} style={styles.searchInputContainer}>
-                  <Input ref="searchInput" type="text" label="Search" placeholder="What are you looking for?" bsSize="large" onChange={this.handleSearchInputChange} onKeyDown={this.onSearchInputKeyDown} />
-                </Col>
-                <Col md={4} style={styles.locationInputContainer}>
-                  <Input ref="locationInput" id="locationInput" type="text" label="Location" placeholder="Enter location" bsSize="large" onChange={this.handleLocationInputChange} onBlur={this.handleLocationInputChange} onKeyDown={this.onSearchInputKeyDown} />
-                </Col>
-                <Col md={2} style={styles.searchButtonContainer}>
-                  <ButtonInput type="button" bsStyle="primary" value="Search" bsSize="large" block onClick={this.onSearchButtonPress} style={styles.searchButton} />
-                </Col>
-              </Row>
+              <Col md={6} style={styles.searchInputContainer}>
+                <Input ref="searchInput" type="text" label="Search" placeholder="What are you looking for?" bsSize="large" onChange={this.handleSearchInputChange} onKeyDown={this.onSearchInputKeyDown} />
+              </Col>
+              <Col md={4} style={styles.locationInputContainer}>
+                <Input ref="locationInput" id="locationInput" type="text" label="Location" placeholder="Enter location" bsSize="large" onChange={this.handleLocationInputChange} onBlur={this.handleLocationInputChange} onKeyDown={this.onSearchInputKeyDown} />
+              </Col>
+              <Col md={2} style={styles.searchButtonContainer}>
+                <ButtonInput type="button" bsStyle="primary" value="Search" bsSize="large" block onClick={this.onSearchButtonPress} style={styles.searchButton} />
+              </Col>
             </form>
           </div>
         </Jumbotron>
@@ -149,8 +149,6 @@ var styles = {
     paddingRight: 0
   },
   navBar: {
-    // marginBottom: 0,
-    // borderColor: '#64cce7',
     marginBottom: -60,
     backgroundColor: 'rgba(0, 0, 0, 0.0)',
     borderBottom: 0,
