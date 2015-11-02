@@ -46,6 +46,7 @@ var Home = React.createClass({
           productSearch: this.state.productSearch.replace(/ /g, '+'),
           location: this.state.location.replace(/ /g, '+')
         });
+        // this.transitionTo('/search/product=' + this.state.productSearch.replace(/ /g, '+') + '&location=' + this.state.location.replace(/ /g, '+'));
       }
     }
   },
@@ -76,6 +77,7 @@ var Home = React.createClass({
         productSearch: this.state.productSearch.replace(/ /g, '+'),
         location: this.state.location.replace(/ /g, '+')
       });
+      // this.transitionTo('/search/product=' + this.state.productSearch.replace(/ /g, '+') + '&location=' + this.state.location.replace(/ /g, '+'));
     }
   },
   render: function(){

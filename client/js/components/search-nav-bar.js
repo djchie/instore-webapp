@@ -44,7 +44,7 @@ var SearchNavBar = React.createClass({
       if (this.state.isLocationAutocompleteOn) {
         this.toggleIsLocationAutocompleteOn();
       }
-      else if (this.state.searchQuery !== '' && this.state.location !== '') {
+      else if (this.state.productSearch !== '' && this.state.location !== '') {
         this.transitionTo('productSearchResults', {
           productSearch: this.state.productSearch.replace(/ /g, '+'),
           location: this.state.location.replace(/ /g, '+')
@@ -74,7 +74,7 @@ var SearchNavBar = React.createClass({
     });
   },
   onSearchButtonPress: function () {
-    if (this.state.searchQuery !== ''  && this.state.location !== '') {
+    if (this.state.productSearch !== ''  && this.state.location !== '') {
       this.transitionTo('productSearchResults', {
         productSearch: this.state.productSearch.replace(/ /g, '+'),
         location: this.state.location.replace(/ /g, '+')
