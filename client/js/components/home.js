@@ -17,7 +17,7 @@ var Home = React.createClass({
   mixins: [Navigation, State],
   getInitialState: function() {
     return {
-      productSearch: '',
+      query: '',
       location: '',
       isLocationAutocompleteOn: false
     };
@@ -33,7 +33,7 @@ var Home = React.createClass({
   },
   handleSearchInputChange: function () {
     this.setState({
-      productSearch: this.refs.searchInput.getValue()
+      query: this.refs.searchInput.getValue()
     });
   },
   onSearchInputKeyDown: function (e) {
@@ -43,10 +43,10 @@ var Home = React.createClass({
       }
       else if (this.state.searchQuery !== '' && this.state.location !== '') {
         this.transitionTo('productSearchResults', {
-          productSearch: this.state.productSearch.replace(/ /g, '+'),
+          query: this.state.query.replace(/ /g, '+'),
           location: this.state.location.replace(/ /g, '+')
         });
-        // this.transitionTo('/search/product=' + this.state.productSearch.replace(/ /g, '+') + '&location=' + this.state.location.replace(/ /g, '+'));
+        // this.transitionTo('/search/query=' + this.state.query.replace(/ /g, '+') + '&location=' + this.state.location.replace(/ /g, '+'));
       }
     }
   },
@@ -74,10 +74,10 @@ var Home = React.createClass({
   onSearchButtonPress: function () {
     if (this.state.searchQuery !== ''  && this.state.location !== '') {
       this.transitionTo('productSearchResults', {
-        productSearch: this.state.productSearch.replace(/ /g, '+'),
+        query: this.state.query.replace(/ /g, '+'),
         location: this.state.location.replace(/ /g, '+')
       });
-      // this.transitionTo('/search/product=' + this.state.productSearch.replace(/ /g, '+') + '&location=' + this.state.location.replace(/ /g, '+'));
+      // this.transitionTo('/search/query=' + this.state.query.replace(/ /g, '+') + '&location=' + this.state.location.replace(/ /g, '+'));
     }
   },
   render: function(){
@@ -90,9 +90,13 @@ var Home = React.createClass({
             </div>
             <ul className="nav navbar-nav pull-right" style={styles.navBarMenu}>
               <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Connect Your Inventory </Link></li>
+              {
+              /*
               <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Help </Link></li>
               <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Sign Up </Link></li>
               <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Sign In </Link></li>
+              */
+              }
             </ul>
           </div>
         </nav>

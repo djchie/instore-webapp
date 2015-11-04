@@ -4,6 +4,9 @@ var Navigation = require('react-router').Navigation;
 var State = require('react-router').State;
 var Link = Router.Link;
 
+var ProductAction = require('../actions/product-actions');
+// var ProductStore = require('../stores/product-store');
+
 var Input = require('react-bootstrap').Input;
 var ButtonInput = require('react-bootstrap').ButtonInput;
 var Col = require('react-bootstrap').Col;
@@ -20,7 +23,7 @@ var SearchNavBar = React.createClass({
   mixins: [Navigation, State],
   getInitialState: function () {
     return {
-      productSearch: this.getParams().productSearch.replace(/\+/g, ' '),
+      query: this.getParams().query.replace(/\+/g, ' '),
       location: this.getParams().location.replace(/\+/g, ' '),
       isLocationAutocompleteOn: false
     };
@@ -33,10 +36,12 @@ var SearchNavBar = React.createClass({
     };
     var autocomplete = new google.maps.places.Autocomplete(locationInput, options);
     google.maps.event.addListener(autocomplete, 'place_changed', this.handlePlaceChanged);
+    console.log('search-nav-bar: componentDidMount');
+    ProductAction.searchProduct(this.state.query, this.state.location);
   },
   handleSearchInputChange: function () {
     this.setState({
-      productSearch: this.refs.searchInput.getValue()
+      query: this.refs.searchInput.getValue()
     });
   },
   onSearchInputKeyDown: function (e) {
@@ -44,11 +49,12 @@ var SearchNavBar = React.createClass({
       if (this.state.isLocationAutocompleteOn) {
         this.toggleIsLocationAutocompleteOn();
       }
-      else if (this.state.productSearch !== '' && this.state.location !== '') {
-        this.transitionTo('productSearchResults', {
-          productSearch: this.state.productSearch.replace(/ /g, '+'),
-          location: this.state.location.replace(/ /g, '+')
-        });
+      else if (this.state.query !== '' && this.state.location !== '') {
+        // this.transitionTo('productSearchResults', {
+        //   query: this.state.query.replace(/ /g, '+'),
+        //   location: this.state.location.replace(/ /g, '+')
+        // });
+        ProductAction.searchProduct(this.state.query, this.state.location);
       }
     }
   },
@@ -74,41 +80,44 @@ var SearchNavBar = React.createClass({
     });
   },
   onSearchButtonPress: function () {
-    if (this.state.productSearch !== ''  && this.state.location !== '') {
-      this.transitionTo('productSearchResults', {
-        productSearch: this.state.productSearch.replace(/ /g, '+'),
-        location: this.state.location.replace(/ /g, '+')
-      });
+    if (this.state.query !== ''  && this.state.location !== '') {
+      // this.transitionTo('productSearchResults', {
+      //   query: this.state.query.replace(/ /g, '+'),
+      //   location: this.state.location.replace(/ /g, '+')
+      // });
+      ProductAction.searchProduct(this.state.query, this.state.location);
     }
   },
   render: function(){
     return (
-      <div className="container-fluid" style={styles.content}>
-        <nav className="navbar navbar-default navbar-static-top" style={styles.navBar}>
-          <div className="container" style={styles.navBarContentContainer}>
-            <div className="navbar-header" style={styles.navBarLogo}>
-              <Link to="home" className="navbar-brand" style={styles.navBarLink}> InStore </Link>
-            </div>
-            <form>
-              <Col md={4} style={styles.searchInputContainer}>
-                <Input ref="searchInput" type="text" value={this.state.productSearch} addonBefore="Search" placeholder="What are you looking for?" bsSize="large" onChange={this.handleSearchInputChange} onKeyDown={this.onSearchInputKeyDown} />
-              </Col>
-              <Col md={3} style={styles.locationInputContainer}>
-                <Input ref="locationInput" id="locationInput" type="text" value={this.state.location} addonBefore="Location" placeholder="Enter location" bsSize="large" onChange={this.handleLocationInputChange} onBlur={this.handleLocationInputChange} onKeyDown={this.onSearchInputKeyDown} />
-              </Col>
-              <Col md={1} style={styles.searchButtonContainer}>
-                <ButtonInput type="button" bsStyle="primary" value="Search" bsSize="large" block onClick={this.onSearchButtonPress} style={styles.searchButton} />
-              </Col>
-            </form>
-            <ul className="nav navbar-nav pull-right" style={styles.navBarMenu}>
-              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Connect Your Inventory </Link></li>
-              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Help </Link></li>
-              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Sign Up </Link></li>
-              <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Sign In </Link></li>
-            </ul>
+      <nav className="navbar navbar-default navbar-static-top" style={styles.navBar}>
+        <div className="container" style={styles.navBarContentContainer}>
+          <div className="navbar-header" style={styles.navBarLogo}>
+            <Link to="home" className="navbar-brand" style={styles.navBarLink}> InStore </Link>
           </div>
-        </nav>
-      </div>
+          <div style={styles.searchFormContainer}>
+            <Col md={4}>
+              <Input ref="searchInput" type="text" value={this.state.query} addonBefore="Search" placeholder="What are you looking for?" bsSize="large" onChange={this.handleSearchInputChange} onKeyDown={this.onSearchInputKeyDown} standalone  />
+            </Col>
+            <Col md={3}>
+              <Input ref="locationInput" id="locationInput" type="text" value={this.state.location} addonBefore="Location" placeholder="Enter location" bsSize="large" onChange={this.handleLocationInputChange} onBlur={this.handleLocationInputChange} onKeyDown={this.onSearchInputKeyDown} standalone  />
+            </Col>
+            <Col md={1}>
+              <ButtonInput type="button" bsStyle="primary" value="Search" bsSize="large" block onClick={this.onSearchButtonPress} standalone  />
+            </Col>
+          </div>
+          <ul className="nav navbar-nav pull-right" style={styles.navBarMenu}>
+            <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Connect Your Inventory </Link></li>
+            {
+            /*
+            <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Help </Link></li>
+            <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Sign Up </Link></li>
+            <li><Link to="home" className="navbar-brand" style={styles.navBarLink}> Sign In </Link></li>
+            */
+            }
+          </ul>
+        </div>
+      </nav>
     );
   }
 });
@@ -121,7 +130,6 @@ var styles = {
   navBar: {
     marginBottom: 0,
     borderColor: '#64cce7',
-    height: 60,
   },
   navBarContentContainer: {
     marginLeft: 0,
@@ -138,17 +146,8 @@ var styles = {
   navBarLink: {
     color: 'grey'
   },
-  searchContainer: {
-
-  },
-  searchInputContainer: {
-    paddingTop: 6,
-  },
-  locationInputContainer: {
-    paddingTop: 6,
-  },
-  searchButtonContainer: {
-    paddingTop: 6,
+  searchFormContainer: {
+    paddingTop: 8
   }
 };
 
